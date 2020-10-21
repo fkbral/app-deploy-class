@@ -1,19 +1,38 @@
 const crypto = require('crypto');
+const Ngo = require('../models/Ngo');
 
 class NgoController {
-  async store(req, res) {
+  async store(request, response) {
+    const id = crypto.randomBytes(4).toString('HEX');
 
-    return res.json({message: 'ok'});
+    const { name, email, whatsapp, city, uf } = request.body;
+
+    const ngoExists = await Ngo.findOne({where: { name }});
+
+    if (ngoExists) {
+      return response.status(400).send('<h1>email já cadastrado</h1>');
+    }
+
+    const ngo = await Ngo.create({
+      id,
+      name,
+      email,
+      whatsapp,
+      city,
+      uf
+    });
+
+    return response.status(201).json(ngo);
   }
 
-  async index(req, res) {
+  async index(request, response) {
+    const ngos = await Ngo.findAll();
 
-    return res.json({message: 'ok'});
+    return response.json(ngos);
   }
 
-  async delete(req, res) {
+  async delete(request, res) {
 
-    return res.json(ngos);
   }
 }
 
