@@ -1,10 +1,33 @@
+const IncidentRepository = require('../repositories/IncidentRepository');
+const CreateIncidentService = require('../services/CreateIncidentService');
+
 class IncidentController {
   async store(req, res) {
-    return res.json({ message: 'ok'});
+    const ngo_id = req.headers.authorization;
+    const { title, description, value } = req.body;
+    
+    const incidentRepository = new IncidentRepository();
+
+    const createIncidentService = new CreateIncidentService({incidentRepository})
+
+    const incident = await createIncidentService.execute({ ngo_id, title, description, value })
+
+    return res.json(incident);
   }
 
   async delete(req, res) {
-    return res.json({ message: 'ok'});
+    const { id } = req.params;
+    const ngo_id = req.headers.authorization;
+
+    const incident = await Incident.findOne({ where: { id }, attributes: ['ngo_id']});
+
+    if (incident.ngo_id !== ngo_id) {
+      return res.status(401).json({ error: 'Not authorized' });
+    }
+
+    await Incident.destroy({ where: { id }});
+
+    return res.status(204).send();
   }
 }
 

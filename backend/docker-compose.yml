@@ -1,0 +1,24 @@
+version: '3'
+
+services: 
+  api:
+    build: .
+    ports: 
+      - '3333:3333'
+    depends_on:
+      - postgresdb
+    command: /bin/sh -c "yarn sequelize db:migrate && yarn start"
+  web:
+    build: ../frontend/.
+    ports:
+      - '3000:3000'
+    command: yarn serve
+  postgresdb:
+    image: postgres
+    environment: 
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=bethehero
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
