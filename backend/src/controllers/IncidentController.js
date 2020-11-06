@@ -1,6 +1,8 @@
 const IncidentRepository = require('../repositories/IncidentRepository');
 const CreateIncidentService = require('../services/CreateIncidentService');
 
+const Incident = require('../models/Incident')
+
 class IncidentController {
 
   async index(req, res) {
@@ -25,10 +27,14 @@ class IncidentController {
   }
 
   async delete(req, res) {
-    const { id } = req.params;
     const ngo_id = req.headers.authorization;
+    const { id } = req.params;
 
     const incident = await Incident.findOne({ where: { id }, attributes: ['ngo_id']});
+
+    if(!incident){
+      return res.status(401).json({ error: 'Incident does not exist' });
+    }
 
     if (incident.ngo_id !== ngo_id) {
       return res.status(401).json({ error: 'Not authorized' });
