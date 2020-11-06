@@ -2,6 +2,15 @@ const IncidentRepository = require('../repositories/IncidentRepository');
 const CreateIncidentService = require('../services/CreateIncidentService');
 
 class IncidentController {
+
+  async index(req, res) {
+    const incidentRepository = new IncidentRepository();
+
+    const incidents = await incidentRepository.listIncidents()
+
+    return res.json(incidents)
+  }
+
   async store(req, res) {
     const ngo_id = req.headers.authorization;
     const { title, description, value } = req.body;
@@ -11,6 +20,8 @@ class IncidentController {
     const createIncidentService = new CreateIncidentService({incidentRepository})
 
     const incident = await createIncidentService.execute({ ngo_id, title, description, value })
+
+    user.delete(password)
 
     return res.json(incident);
   }

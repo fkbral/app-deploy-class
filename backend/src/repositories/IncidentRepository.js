@@ -12,6 +12,12 @@ class IncidentRepository {
 
     return(incident);
   }
+
+  async listIncidents(){
+    const incidents = await Incident.findAll()
+
+    return(incidents)
+  }
 }
 
 module.exports = IncidentRepository;

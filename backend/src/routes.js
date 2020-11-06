@@ -12,6 +12,7 @@ routes.post('/ngos', NgoController.store);
 
 routes.post('/sessions', SessionController.store);
 
+routes.get('/incidents', IncidentController.index);
 routes.post('/incidents', IncidentController.store);
 routes.delete('/incidents/:id', IncidentController.delete);
 
