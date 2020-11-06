@@ -5,7 +5,8 @@ module.exports = {
     return queryInterface.createTable('incidents', {
       id: {
         type: Sequelize.INTEGER,
-        autoIncrements: true,
+        allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
       },
       ngo_id: {

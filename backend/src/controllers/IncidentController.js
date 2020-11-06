@@ -21,8 +21,6 @@ class IncidentController {
 
     const incident = await createIncidentService.execute({ ngo_id, title, description, value })
 
-    user.delete(password)
-
     return res.json(incident);
   }
 
