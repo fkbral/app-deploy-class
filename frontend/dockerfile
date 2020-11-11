@@ -2,7 +2,9 @@ FROM node:lts-alpine
 
 WORKDIR /home/node/web
 
-RUN mkdir ./node_modules && chown -R node:node node_modules
+RUN mkdir -p node_modules && mkdir -p build && mkdir -p public && chown -R node:node node_modules
+
+RUN chown -R node:node build && chown -R node:node public
 
 COPY package.json yarn.* ./
 

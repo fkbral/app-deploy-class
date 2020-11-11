@@ -4,8 +4,6 @@ WORKDIR /home/node/server
 
 RUN mkdir -p node_modules && chown -R node:node node_modules
 
-# COPY arquivo1 arquivo2 pasta_no_meu_container
-
 COPY package.json yarn.* ./
 
 USER node

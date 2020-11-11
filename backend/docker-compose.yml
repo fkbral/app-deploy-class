@@ -7,17 +7,19 @@ services:
       - '3333:3333'
     depends_on:
       - postgresdb
+      - rediscache
     command: /bin/sh -c "yarn sequelize db:migrate && yarn start"
   web:
     build: ../frontend/.
     ports:
       - '3000:3000'
     command: yarn serve
+  rediscache:
+    image: redis:alpine
+    ports:
+      - 6379:6379
   postgresdb:
     image: postgres
-    environment: 
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=bethehero
     volumes: 
       - postgres_data:/var/lib/postgresql/data
 volumes:
