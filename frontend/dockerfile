@@ -1,12 +1,14 @@
 FROM node:lts-alpine
 
+RUN mkdir -p /home/node/server && chown -R node:node /home/node/web
+
 WORKDIR /home/node/web
 
 RUN mkdir -p node_modules && mkdir -p build && mkdir -p public && chown -R node:node node_modules
 
 RUN chown -R node:node build && chown -R node:node public
 
-COPY package.json yarn.* ./
+COPY package.json yarn.lock yarn.error.log ./
 
 USER node
 

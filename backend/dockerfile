@@ -6,7 +6,7 @@ WORKDIR /home/node/server
 
 RUN mkdir -p node_modules && chown -R node:node node_modules
 
-COPY package.json yarn.* ./
+COPY package.json yarn.lock yarn.error.log ./
 
 USER node
 
