@@ -8,6 +8,10 @@ RUN mkdir -p node_modules && mkdir -p build && mkdir -p public && chown -R node:
 
 RUN chown -R node:node build && chown -R node:node public
 
+COPY package.json yarn.* ./
+
+RUN chown node:node yarn.*
+
 USER node
 
 RUN yarn
