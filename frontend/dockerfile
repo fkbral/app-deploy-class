@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 
-RUN mkdir -p /home/node/server && chown -R node:node /home/node/web
+RUN mkdir -p /home/node/web && chown -R node:node /home/node/web
 
 WORKDIR /home/node/web
 
@@ -8,7 +8,7 @@ RUN mkdir -p node_modules && mkdir -p build && mkdir -p public && chown -R node:
 
 RUN chown -R node:node build && chown -R node:node public
 
-COPY package.json yarn.lock yarn.error.log ./
+COPY package.json yarn.* ./
 
 USER node
 
