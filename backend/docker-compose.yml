@@ -22,5 +22,7 @@ services:
     image: postgres
     volumes: 
       - postgres_data:/var/lib/postgresql/data
+    environment: 
+      - "POSTGRES_PASSWORD=${proccess.env.POSTGRES_PASSWORD}"
 volumes:
   postgres_data:
